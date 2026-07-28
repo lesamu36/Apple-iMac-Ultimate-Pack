@@ -27,7 +27,11 @@ xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-Classic" 2>/
 xfconf-query -c xsettings -p /Gtk/FontName -s "Sans 10" 2>/dev/null
 
 # Disable window compositing (improves speed on old hardware)
-xfconf-query -c xfwm4 -p /general/use_compositing -s false 2>/dev/null
+xfconf-query -c xfwm4 -p /general/use_compositing -n -t bool -s true 2>/dev/null || \
+xfconf-query -c xfwm4 -p /general/use_compositing -s true
+
+xfwm4 --replace >/dev/null 2>&1 &
+sleep 2
 
 echo ""
 echo "Desktop optimization completed."

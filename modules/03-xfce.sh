@@ -15,8 +15,11 @@ echo -e "${GREEN}✓ Optimizing XFCE desktop${NC}"
 
 
 # Disable compositor for old GPU
-xfconf-query -c xfwm4 -p /general/use_compositing -s false 2>/dev/null
+xfconf-query -c xfwm4 -p /general/use_compositing -n -t bool -s true 2>/dev/null || \
+xfconf-query -c xfwm4 -p /general/use_compositing -s true
 
+xfwm4 --replace >/dev/null 2>&1 &
+sleep 2
 
 # Reduce animations
 xfconf-query -c xfwm4 -p /general/mousewheel_rollup -s false 2>/dev/null
